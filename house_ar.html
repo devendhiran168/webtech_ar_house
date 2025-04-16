@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Space - Your Perfect Home</title>
+  <style>
+    :root {
+      --primary: rebeccapurple;
+      --secondary: olivedrab;
+      --accent: mediumvioletred;
+      --light: #fef6ff;
+      --dark: #333;
+      --success: seagreen;
+      --warning: darkgoldenrod;
+      --info: cornflowerblue;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, thistle 0%, #d8bfd8 100%);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu {
+      background-color: var(--secondary);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .menu a:hover {
+      color: var(--warning);
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .menu a.active {
+      background-color: var(--accent);
+    }
+
+    .container {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Home Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero h1 {
+      color: var(--primary);
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1em;
+    }
+
+    .cta-button:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-card h3 {
+      color: var(--success);
+      margin-top: 0;
+    }
+
+    /* Auth Section */
+    .auth-section {
+      display: none;
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .auth-section.active {
+      display: block;
+    }
+
+    .auth-section h2 {
+      color: var(--success);
+      margin-bottom: 25px;
+      font-size: 1.8em;
+      text-align: center;
+    }
+
+    .auth-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .auth-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #eee;
+      border: none;
+      font-weight: bold;
+    }
+
+    .auth-tab.active {
+      background: var(--info);
+      color: white;
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--info);
+      color: white;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--accent);
+    }
+
+    /* Preference Section */
+    .preference-section {
+      display: none;
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .preference-section.active {
+      display: block;
+    }
+
+    .preference-section h2 {
+      color: var(--success);
+      margin-bottom: 25px;
+      font-size: 1.8em;
+      text-align: center;
+    }
+
+    /* Loading indicator */
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 4px solid var(--accent);
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Footer */
+    footer {
+      background-color: lightseagreen;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 0.9em;
+      margin-top: auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .hero {
+        padding: 40px 15px;
+      }
+      
+      .auth-section, .preference-section {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Dream Space</header>
+
+  <div class="menu">
+    <a href="#" class="menu-link active" data-section="home">Home</a>
+    <a href="#" class="menu-link" data-section="about">About Us</a>
+    <a href="#" class="menu-link" data-section="contact">Contact</a>
+    <a href="#" class="menu-link" data-section="auth">Sign In</a>
+  </div>
+
+  <div class="container">
+    <!-- Home Section -->
+    <section id="home-section" class="section-content">
+      <div class="hero">
+        <h1>Find Your Dream Home</h1>
+        <p>Discover the perfect living space tailored to your preferences. Our AI-powered platform helps you visualize and find homes that match your style and budget.</p>
+        <button class="cta-button" id="get-started-btn">Get Started</button>
+      </div>
+
+      <div class="features">
+        <div class="feature-card">
+          <h3>Personalized Recommendations</h3>
+          <p>Get home suggestions that match your unique preferences and lifestyle needs.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Virtual Tours</h3>
+          <p>Explore properties in immersive 3D before you visit in person.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Budget Planning</h3>
+          <p>Find homes that fit your financial plan with our smart budget filters.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Auth Section -->
+    <section id="auth-section" class="section-content" style="display:none;">
+      <div class="auth-section active">
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-form="login-form">Login</button>
+          <button class="auth-tab" data-form="register-form">Register</button>
+        </div>
+
+        <form id="login-form" class="auth-form active">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+            <div class="error-message" id="login-email-error"></div>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+            <div class="error-message" id="login-password-error"></div>
+          </div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+
+        <form id="register-form" class="auth-form">
+          <div class="form-group">
+            <label for="register-name">Full Name</label>
+            <input type="text" id="register-name" class="form-control" placeholder="Enter your full name" required>
+            <div class="error-message" id="register-name-error"></div>
+          </div>
+          <div class="form-group">
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" class="form-control" placeholder="Enter your email" required>
+            <div class="error-message" id="register-email-error"></div>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" class="form-control" placeholder="Create a password" required>
+            <div class="error-message" id="register-password-error"></div>
+          </div>
+          <div class="form-group">
+            <label for="register-confirm">Confirm Password</label>
+            <input type="password" id="register-confirm" class="form-control" placeholder="Confirm your password" required>
+            <div class="error-message" id="register-confirm-error"></div>
+          </div>
+          <button type="submit" class="btn">Register</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Preference Section -->
+    <section id="preference-section" class="section-content" style="display:none;">
+      <div class="preference-section active">
+        <h2>Select Your Dream Space</h2>
+        <form id="selectionForm">
+          <div class="form-group">
+            <label for="bhk">Select BHK:</label>
+            <select id="bhk" class="form-control" required>
+              <option value="">Select</option>
+              <option value="1bhk">1 BHK</option>
+              <option value="2bhk">2 BHK</option>
+              <option value="3bhk">3 BHK</option>
+              <option value="4bhk">4 BHK</option>
+            </select>
+            <div class="error-message" id="bhk-error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="budget">Enter Budget (in Lakhs):</label>
+            <input type="number" id="budget" class="form-control" placeholder="Enter budget" min="10" max="1000" required>
+            <div class="error-message" id="budget-error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="style">Select House Style:</label>
+            <select id="style" class="form-control" required>
+              <option value="">Select</option>
+              <option value="Modern">Modern</option>
+              <option value="Traditional">Traditional</option>
+              <option value="Minimalist">Minimalist</option>
+              <option value="Colonial">Colonial</option>
+              <option value="Contemporary">Contemporary</option>
+            </select>
+            <div class="error-message" id="style-error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Preferred Location:</label>
+            <input type="text" id="location" class="form-control" placeholder="Enter preferred location">
+          </div>
+
+          <button type="submit" class="btn">Find My Dream Home</button>
+          
+          <!-- Loading indicator -->
+          <div class="loading" id="loading-indicator">
+            <div class="spinner"></div>
+            <p>Finding your perfect home experience...</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about-section" class="section-content" style="display:none;">
+      <div class="preference-section active">
+        <h2>About Dream Space</h2>
+        <p>Dream Space is an innovative platform that helps you find and visualize your perfect home. Our technology combines AI recommendations with immersive 3D experiences to make home hunting easier and more enjoyable.</p>
+        <p>Founded in 2023, we've helped thousands of people find their dream homes by understanding their unique preferences and matching them with ideal properties.</p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact-section" class="section-content" style="display:none;">
+      <div class="preference-section active">
+        <h2>Contact Us</h2>
+        <p>Have questions or need assistance? Reach out to our team!</p>
+        
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" class="form-control" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" class="form-control" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
+          </div>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Dream Space. All rights reserved.
+  </footer>
+
+  <script>
+    // Navigation between sections
+    document.querySelectorAll('.menu-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Update active menu item
+        document.querySelectorAll('.menu-link').forEach(item => {
+          item.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // Hide all sections
+        document.querySelectorAll('.section-content').forEach(section => {
+          section.style.display = 'none';
+        });
+        
+        // Show selected section
+        const sectionId = this.getAttribute('data-section') + '-section';
+        document.getElementById(sectionId).style.display = 'block';
+        
+        // If clicking Sign In, show login form by default
+        if (this.getAttribute('data-section') === 'auth') {
+          document.querySelector('.auth-tab[data-form="login-form"]').click();
+        }
+      });
+    });
+
+    // Auth tabs switching
+    document.querySelectorAll('.auth-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.auth-tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        document.querySelectorAll('.auth-form').forEach(form => {
+          form.classList.remove('active');
+        });
+        
+        const formId = this.getAttribute('data-form');
+        document.getElementById(formId).classList.add('active');
+      });
+    });
+
+    // Get Started button
+    document.getElementById('get-started-btn').addEventListener('click', function() {
+      document.querySelector('.menu-link[data-section="auth"]').click();
+    });
+
+    // Form Validations
+    // Login Form Validation
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let isValid = true;
+      
+      // Validate email
+      const email = document.getElementById('login-email').value.trim();
+      const emailError = document.getElementById('login-email-error');
+      if (!email) {
+        emailError.textContent = 'Email is required';
+        emailError.style.display = 'block';
+        isValid = false;
+      } else if (!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email)) {
+        emailError.textContent = 'Please enter a valid email';
+        emailError.style.display = 'block';
+        isValid = false;
+      } else {
+        emailError.style.display = 'none';
+      }
+      
+      // Validate password
+      const password = document.getElementById('login-password').value.trim();
+      const passwordError = document.getElementById('login-password-error');
+      if (!password) {
+        passwordError.textContent = 'Password is required';
+        passwordError.style.display = 'block';
+        isValid = false;
+      } else if (password.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters';
+        passwordError.style.display = 'block';
+        isValid = false;
+      } else {
+        passwordError.style.display = 'none';
+      }
+      
+      if (isValid) {
+        // Show preference section on successful login
+        document.getElementById('preference-section').style.display = 'block';
+        document.getElementById('auth-section').style.display = 'none';
+        
+        // Update menu active state
+        document.querySelectorAll('.menu-link').forEach(item => {
+          item.classList.remove('active');
+        });
+        // Create a preference menu item if needed
+      }
+    });
+
+    // Register Form Validation
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let isValid = true;
+      
+      // Validate name
+      const name = document.getElementById('register-name').value.trim();
+      const nameError = document.getElementById('register-name-error');
+      if (!name) {
+        nameError.textContent = 'Name is required';
+        nameError.style.display = 'block';
+        isValid = false;
+      } else {
+        nameError.style.display = 'none';
+      }
+      
+      // Validate email
+      const email = document.getElementById('register-email').value.trim();
+      const emailError = document.getElementById('register-email-error');
+      if (!email) {
+        emailError.textContent = 'Email is required';
+        emailError.style.display = 'block';
+        isValid = false;
+      } else if (!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email)) {
+        emailError.textContent = 'Please enter a valid email';
+        emailError.style.display = 'block';
+        isValid = false;
+      } else {
+        emailError.style.display = 'none';
+      }
+      
+      // Validate password
+      const password = document.getElementById('register-password').value.trim();
+      const passwordError = document.getElementById('register-password-error');
+      if (!password) {
+        passwordError.textContent = 'Password is required';
+        passwordError.style.display = 'block';
+        isValid = false;
+      } else if (password.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters';
+        passwordError.style.display = 'block';
+        isValid = false;
+      } else {
+        passwordError.style.display = 'none';
+      }
+      
+      // Validate confirm password
+      const confirm = document.getElementById('register-confirm').value.trim();
+      const confirmError = document.getElementById('register-confirm-error');
+      if (!confirm) {
+        confirmError.textContent = 'Please confirm your password';
+        confirmError.style.display = 'block';
+        isValid = false;
+      } else if (confirm !== password) {
+        confirmError.textContent = 'Passwords do not match';
+        confirmError.style.display = 'block';
+        isValid = false;
+      } else {
+        confirmError.style.display = 'none';
+      }
+      
+      if (isValid) {
+        alert('Registration successful! Please login with your credentials.');
+        document.querySelector('.auth-tab[data-form="login-form"]').click();
+      }
+    });
+
+    // AR Experience URLs mapping
+    const AR_EXPERIENCES = {
+      "1bhk": {
+        "Modern": "https://2xd6n.zappar-us.io/4645638476272685287/",
+        "Traditional": "https://p627r.zappar.io/5978977659020452677/v2.0/",
+        "Minimalist": "https://2xd6n.zappar-us.io/3755203317047844968/",
+        "Colonial": "https://2xd6n.zappar-us.io/4645638476272685287/",
+        "Contemporary": "https://p627r.zappar.io/5978977659020452677/v2.0/"
+      },
+      "2bhk": {
+        "Modern": "https://2xd6n.zappar-us.io/3755203317047844968/",
+        "Traditional": "https://2xd6n.zappar-us.io/4645638476272685287/",
+        "Minimalist": "https://p627r.zappar.io/5978977659020452677/v2.0/",
+        "Colonial": "https://2xd6n.zappar-us.io/3755203317047844968/",
+        "Contemporary": "https://2xd6n.zappar-us.io/4645638476272685287/"
+      },
+      "3bhk": {
+        "Modern": "https://p627r.zappar.io/5978977659020452677/v2.0/",
+        "Traditional": "https://2xd6n.zappar-us.io/3755203317047844968/",
+        "Minimalist": "https://2xd6n.zappar-us.io/4645638476272685287/",
+        "Colonial": "https://p627r.zappar.io/5978977659020452677/v2.0/",
+        "Contemporary": "https://2xd6n.zappar-us.io/3755203317047844968/"
+      },
+      "4bhk": {
+        "Modern": "https://2xd6n.zappar-us.io/4645638476272685287/",
+        "Traditional": "https://2xd6n.zappar-us.io/3755203317047844968/",
+        "Minimalist": "https://p627r.zappar.io/5978977659020452677/v2.0/",
+        "Colonial": "https://2xd6n.zappar-us.io/4645638476272685287/",
+        "Contemporary": "https://2xd6n.zappar-us.io/3755203317047844968/"
+      }
+    };
+
+    // Preference Form Validation with AR Experience Selection
+    document.getElementById('selectionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let isValid = true;
+      
+      // Validate BHK
+      const bhk = document.getElementById('bhk').value;
+      const bhkError = document.getElementById('bhk-error');
+      if (!bhk) {
+        bhkError.textContent = 'Please select BHK';
+        bhkError.style.display = 'block';
+        isValid = false;
+      } else {
+        bhkError.style.display = 'none';
+      }
+      
+      // Validate budget
+      const budget = document.getElementById('budget').value.trim();
+      const budgetError = document.getElementById('budget-error');
+      if (!budget) {
+        budgetError.textContent = 'Budget is required';
+        budgetError.style.display = 'block';
+        isValid = false;
+      } else if (isNaN(budget) || budget < 10 || budget > 1000) {
+        budgetError.textContent = 'Please enter a valid budget between 10 and 1000 Lakhs';
+        budgetError.style.display = 'block';
+        isValid = false;
+      } else {
+        budgetError.style.display = 'none';
+      }
+      
+      // Validate style
+      const style = document.getElementById('style').value;
+      const styleError = document.getElementById('style-error');
+      if (!style) {
+        styleError.textContent = 'Please select a style';
+        styleError.style.display = 'block';
+        isValid = false;
+      } else {
+        styleError.style.display = 'none';
+      }
+      
+      if (isValid) {
+        // Show loading indicator
+        document.getElementById('loading-indicator').style.display = 'block';
+        
+        // Get the selected values
+        const bhk = document.getElementById('bhk').value;
+        const style = document.getElementById('style').value;
+        
+        // Simulate loading (in real app, you might do some processing here)
+        setTimeout(() => {
+          // Determine which AR experience to show based on selections
+          const arUrl = AR_EXPERIENCES[bhk][style];
+          
+          // Redirect to the selected AR experience
+          window.location.href = arUrl;
+        }, 1500); // 1.5 second delay to simulate processing
+      }
+    });
+
+    // Contact Form Validation
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let isValid = true;
+      
+      // Simple validation - in a real app you'd want more robust checks
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      
+      if (!name || !email || !message) {
+        alert('Please fill all fields');
+        isValid = false;
+      } else if (!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email)) {
+        alert('Please enter a valid email');
+        isValid = false;
+      }
+      
+      if (isValid) {
+        alert('Thank you for your message! We will get back to you soon.');
+        this.reset();
+      }
+    });
+  </script>
+</body>
+</html>
